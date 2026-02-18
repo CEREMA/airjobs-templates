@@ -1,0 +1,10 @@
+{
+  "id": "python",
+  "name": "Python",
+  "description": "Execute Python scripts",
+  "image": "python:3.11-alpine",
+  "icon": "python",
+  "color": "#3b82f6",
+  "defaultCommands": ["python -c \"print('Hello World')\""],
+  "produces": []
+}

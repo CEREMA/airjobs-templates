@@ -1,0 +1,10 @@
+{
+  "id": "shell",
+  "name": "Shell Script",
+  "description": "Execute shell commands with Alpine Linux",
+  "image": "alpine:latest",
+  "icon": "terminal",
+  "color": "#4ade80",
+  "defaultCommands": ["echo 'Hello World'"],
+  "produces": []
+}

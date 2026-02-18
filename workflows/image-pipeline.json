@@ -1,0 +1,55 @@
+{
+  "id": "image-pipeline",
+  "name": "Image Pipeline",
+  "description": "Parallel image processing: thumbnail + grayscale",
+  "icon": "git-branch",
+  "input": [
+    { "key": "image", "type": "file" }
+  ],
+  "stages": [
+    {
+      "name": "resize",
+      "image": "dpokidov/imagemagick:latest",
+      "command": ["sh", "-c", "convert /data/image.* -resize 400x400 /data/resized.jpg"],
+      "produces": [
+        { "key": "resized", "type": "file", "path": "/data/resized.jpg" }
+      ]
+    },
+    [
+      {
+        "name": "thumbnail",
+        "image": "dpokidov/imagemagick:latest",
+        "command": ["sh", "-c", "convert /data/resized.jpg -resize 100x100 /data/thumbnail.jpg"],
+        "produces": [
+          { "key": "thumbnail", "type": "file", "path": "/data/thumbnail.jpg" }
+        ]
+      },
+      {
+        "name": "grayscale",
+        "image": "dpokidov/imagemagick:latest",
+        "command": ["sh", "-c", "convert /data/resized.jpg -colorspace Gray /data/grayscale.jpg"],
+        "produces": [
+          { "key": "grayscale", "type": "file", "path": "/data/grayscale.jpg" }
+        ]
+      }
+    ],
+    {
+      "name": "info",
+      "image": "dpokidov/imagemagick:latest",
+      "command": ["sh", "-c", "identify /data/thumbnail.jpg /data/grayscale.jpg > /data/info.txt"],
+      "produces": [
+        { "key": "info", "type": "file", "path": "/data/info.txt" }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "exports": [
+        { "key": "thumbnail", "from": "thumbnail.thumbnail", "type": "file", "path": "/data/thumbnail.jpg" },
+        { "key": "grayscale", "from": "grayscale.grayscale", "type": "file", "path": "/data/grayscale.jpg" },
+        { "key": "info", "from": "info.info", "type": "file", "path": "/data/info.txt" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "imagemagick",
+  "name": "ImageMagick",
+  "description": "Image processing and manipulation (resize, convert, effects)",
+  "image": "dpokidov/imagemagick:latest",
+  "icon": "image",
+  "color": "#f97316",
+  "defaultCommands": ["convert /data/input.* -resize 400x400 /data/output.jpg"],
+  "produces": [
+    { "key": "output", "type": "file", "path": "/data/output.jpg" }
+  ]
+}

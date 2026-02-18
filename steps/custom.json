@@ -1,0 +1,10 @@
+{
+  "id": "custom",
+  "name": "Custom Image",
+  "description": "Use any Docker image",
+  "image": "",
+  "icon": "settings",
+  "color": "#64748b",
+  "defaultCommands": ["echo 'Configure this step'"],
+  "produces": []
+}

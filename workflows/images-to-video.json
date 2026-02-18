@@ -1,0 +1,46 @@
+{
+  "id": "images-to-video",
+  "name": "Images to Video",
+  "description": "Convert multiple images to a video slideshow",
+  "icon": "film",
+  "input": [
+    { "key": "image1", "type": "file" },
+    { "key": "image2", "type": "file" }
+  ],
+  "stages": [
+    [
+      {
+        "name": "clip1",
+        "image": "jrottenberg/ffmpeg:5-alpine",
+        "command": ["sh", "-c", "ffmpeg -loop 1 -i /data/image1.* -c:v libx264 -t 3 -pix_fmt yuv420p -vf \"scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2\" -y /data/clip1.mp4"],
+        "produces": [
+          { "key": "clip1", "type": "file", "path": "/data/clip1.mp4" }
+        ]
+      },
+      {
+        "name": "clip2",
+        "image": "jrottenberg/ffmpeg:5-alpine",
+        "command": ["sh", "-c", "ffmpeg -loop 1 -i /data/image2.* -c:v libx264 -t 3 -pix_fmt yuv420p -vf \"scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2\" -y /data/clip2.mp4"],
+        "produces": [
+          { "key": "clip2", "type": "file", "path": "/data/clip2.mp4" }
+        ]
+      }
+    ],
+    {
+      "name": "concat",
+      "image": "jrottenberg/ffmpeg:5-alpine",
+      "command": ["sh", "-c", "echo -e \"file clip1.mp4\\nfile clip2.mp4\" > /data/list.txt && cd /data && ffmpeg -f concat -safe 0 -i list.txt -c copy -y output.mp4"],
+      "produces": [
+        { "key": "video", "type": "file", "path": "/data/output.mp4" }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "exports": [
+        { "key": "video", "from": "concat.video", "type": "file", "path": "/data/output.mp4" }
+      ]
+    }
+  ]
+}

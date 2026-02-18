@@ -1,0 +1,12 @@
+{
+  "id": "ffmpeg",
+  "name": "FFmpeg",
+  "description": "Video/audio processing (encode, convert, trim, concat)",
+  "image": "jrottenberg/ffmpeg:5-alpine",
+  "icon": "video",
+  "color": "#8b5cf6",
+  "defaultCommands": ["ffmpeg -i /data/input.* -c:v libx264 -preset fast /data/output.mp4"],
+  "produces": [
+    { "key": "output", "type": "file", "path": "/data/output.mp4" }
+  ]
+}

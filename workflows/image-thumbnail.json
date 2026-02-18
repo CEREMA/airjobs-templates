@@ -1,0 +1,27 @@
+{
+  "id": "image-thumbnail",
+  "name": "Image Thumbnail",
+  "description": "Resize an image to 200x200 thumbnail",
+  "icon": "image",
+  "input": [
+    { "key": "image", "type": "file" }
+  ],
+  "stages": [
+    {
+      "name": "resize",
+      "image": "dpokidov/imagemagick:latest",
+      "command": ["sh", "-c", "convert /data/image.* -resize 200x200 /data/thumbnail.jpg"],
+      "produces": [
+        { "key": "thumbnail", "type": "file", "path": "/data/thumbnail.jpg" }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "exports": [
+        { "key": "thumbnail", "from": "resize.thumbnail", "type": "file", "path": "/data/thumbnail.jpg" }
+      ]
+    }
+  ]
+}

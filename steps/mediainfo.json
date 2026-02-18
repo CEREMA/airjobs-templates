@@ -1,0 +1,12 @@
+{
+  "id": "mediainfo",
+  "name": "MediaInfo",
+  "description": "Extract metadata from media files (video, audio, images)",
+  "image": "jrottenberg/ffmpeg:5-alpine",
+  "icon": "info",
+  "color": "#06b6d4",
+  "defaultCommands": ["apk add --no-cache mediainfo && mediainfo --Output=JSON /data/input.* > /data/info.json"],
+  "produces": [
+    { "key": "info", "type": "json", "path": "/data/info.json" }
+  ]
+}

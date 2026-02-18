@@ -1,0 +1,27 @@
+{
+  "id": "hello-world",
+  "name": "Hello World",
+  "description": "Simple greeting workflow with input variable",
+  "icon": "hand",
+  "input": [
+    { "key": "name", "type": "text" }
+  ],
+  "stages": [
+    {
+      "name": "greet",
+      "image": "alpine",
+      "command": ["sh", "-c", "echo \"Hello {{input.name}}!\" > /data/greeting.txt"],
+      "produces": [
+        { "key": "greeting", "type": "file", "path": "/data/greeting.txt" }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "exports": [
+        { "key": "greeting", "from": "greet.greeting", "type": "file", "path": "/data/greeting.txt" }
+      ]
+    }
+  ]
+}

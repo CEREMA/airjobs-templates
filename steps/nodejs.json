@@ -1,0 +1,10 @@
+{
+  "id": "nodejs",
+  "name": "Node.js",
+  "description": "Execute JavaScript with Node.js runtime",
+  "image": "node:22-alpine",
+  "icon": "layers",
+  "color": "#22c55e",
+  "defaultCommands": ["node -e \"console.log('Hello World')\""],
+  "produces": []
+}
